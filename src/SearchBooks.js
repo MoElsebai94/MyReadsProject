@@ -1,17 +1,29 @@
 import { Link } from "react-router-dom";
 import Book from "./Book";
 import { useState } from "react";
+import * as BooksAPI from "./BooksAPI";
 
-const SearchBooks = ({ books, moveHandle }) => {
+const SearchBooks = ({ moveHandle }) => {
   const [query, setQuery] = useState("");
+  const [booksFound, setBooksFound] = useState([]);
 
-  const updateQuery = (query) => {
-    setQuery(query);
+  const deleteQuery = () => setBooksFound([]);
+
+  const showingBooks = (event) => {
+    const newQuery = event.target.value;
+    setQuery(newQuery);
+
+    if (newQuery) {
+      BooksAPI.search(newQuery, 20).then((books) => {
+        books.length > 0 ? setBooksFound(books) : setBooksFound([]);
+      });
+    } else {
+      setBooksFound([]);
+      setQuery("");
+    }
   };
 
-  const deleteQuery = () => updateQuery("");
-
-  const showingBooks =
+  /* const showingBooks =
     query === ""
       ? !books
       : books.filter(
@@ -19,6 +31,8 @@ const SearchBooks = ({ books, moveHandle }) => {
             b.title.toLowerCase().includes(query.toLowerCase()) ||
             b.authors.join(", ").toLowerCase().includes(query.toLowerCase())
         );
+
+        */
 
   return (
     <div className="search-books">
@@ -34,20 +48,15 @@ const SearchBooks = ({ books, moveHandle }) => {
             type="text"
             placeholder="Search by title, author, or ISBN"
             value={query}
-            onChange={(event) => updateQuery(event.target.value)}
+            onChange={(e) => showingBooks(e)}
           />
         </div>
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {showingBooks.length
-            ? showingBooks.map((book) => (
-                <Book
-                  key={book.id}
-                  book={book}
-                  moveHandle={moveHandle}
-                  shelf={book.shelf}
-                />
+          {booksFound.length
+            ? booksFound.map((book) => (
+                <Book key={book.id} book={book} moveHandle={moveHandle} />
               ))
             : "Please search/Check your keywords"}
         </ol>

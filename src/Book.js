@@ -1,4 +1,19 @@
-const Book = ({ book, shelf, moveHandle }) => {
+const Book = ({ book, shelf, moveHandle}) => {
+  const bookThumbnail =
+    book.imageLinks && book.imageLinks.thumbnail
+      ? book.imageLinks.thumbnail
+      : "Image not Available";
+
+  const bookTitle = book.title ? book.title : "Unknown title";
+
+  const bookAuthor = book.authors
+    ? Array.isArray(book.authors)
+      ? book.authors.join(", ")
+      : "Unknown author"
+    : "Unknown author";
+
+
+
   return (
     <li>
       <div className="book">
@@ -8,13 +23,13 @@ const Book = ({ book, shelf, moveHandle }) => {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url(${book.imageLinks.thumbnail})`,
+              backgroundImage: `url(${bookThumbnail})`,
             }}
           ></div>
 
           <div className="book-shelf-changer">
             <select
-              value={shelf}
+              value={shelf ? shelf : 'none'}
               onChange={(e) => moveHandle(book, e.target.value)}
             >
               <option value="none" disabled>
@@ -27,8 +42,8 @@ const Book = ({ book, shelf, moveHandle }) => {
             </select>
           </div>
         </div>
-        <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors.join(", ")}</div>
+        <div className="book-title">{bookTitle}</div>
+        <div className="book-authors">{bookAuthor}</div>
       </div>
     </li>
   );
