@@ -1,23 +1,48 @@
 import { Link } from "react-router-dom";
 import Book from "./Book";
+import { useState } from "react";
 
 const SearchBooks = ({ books, moveHandle }) => {
+  const [query, setQuery] = useState("");
+
+  const updateQuery = (query) => {
+    setQuery(query);
+  };
+
+  const deleteQuery = () => updateQuery("");
+
+  const showingBooks =
+    query === ""
+      ? books
+      : books.filter((b) =>
+          b.title.toLowerCase().includes(query.toLowerCase())
+        );
+
   return (
     <div className="search-books">
       <div className="search-books-bar">
         <Link to="/">
-          <button className="close-search">Close</button>
+          <button className="close-search" onClick={deleteQuery}>
+            Close
+          </button>
         </Link>
 
         <div className="search-books-input-wrapper">
-          <input type="text" placeholder="Search by title, author, or ISBN" />
+          <input
+            type="text"
+            placeholder="Search by title, author, or ISBN"
+            value={query}
+            onChange={(event) => updateQuery(event.target.value)}
+          />
         </div>
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {books.map((book) => (
-            <Book key={book.id} book={book} shelf="none" />
-          ))}
+          {showingBooks.length
+            ? showingBooks.map((book) => (
+                <Book key={book.id} book={book} moveHandle={moveHandle} />
+              ))
+            : "none"}
         </ol>
       </div>
     </div>
