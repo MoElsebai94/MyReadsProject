@@ -13,9 +13,11 @@ const SearchBooks = ({ books, moveHandle }) => {
 
   const showingBooks =
     query === ""
-      ? books
-      : books.filter((b) =>
-          b.title.toLowerCase().includes(query.toLowerCase())
+      ? !books
+      : books.filter(
+          (b) =>
+            b.title.toLowerCase().includes(query.toLowerCase()) ||
+            b.authors.join(", ").toLowerCase().includes(query.toLowerCase())
         );
 
   return (
@@ -40,9 +42,14 @@ const SearchBooks = ({ books, moveHandle }) => {
         <ol className="books-grid">
           {showingBooks.length
             ? showingBooks.map((book) => (
-                <Book key={book.id} book={book} moveHandle={moveHandle} />
+                <Book
+                  key={book.id}
+                  book={book}
+                  moveHandle={moveHandle}
+                  shelf={book.shelf}
+                />
               ))
-            : "No books with this name"}
+            : "Please search/Check your keywords"}
         </ol>
       </div>
     </div>

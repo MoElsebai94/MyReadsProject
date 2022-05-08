@@ -8,12 +8,18 @@ const Bookshelf = ({ books, shelf, moveHandle }) => {
       <div className="bookshelf-books">
         <ol className="books-grid">
           {booksOnShelf.map((book) => (
-            <Book key={book.id} book={book} shelf={shelf.key} moveHandle={moveHandle} />
+            <Book
+              key={book.id}
+              book={book}
+              shelf={shelf.key}
+              moveHandle={moveHandle}
+            />
           ))}
         </ol>
       </div>
     </div>
   );
 };
+
 
 export default Bookshelf;
