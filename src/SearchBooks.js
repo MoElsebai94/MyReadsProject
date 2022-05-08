@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import Book from "./Book";
 
-const SearchBooks = () => {
+const SearchBooks = ({ books, moveHandle }) => {
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -13,7 +14,11 @@ const SearchBooks = () => {
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid"></ol>
+        <ol className="books-grid">
+          {books.map((book) => (
+            <Book key={book.id} book={book} shelf="none" />
+          ))}
+        </ol>
       </div>
     </div>
   );
