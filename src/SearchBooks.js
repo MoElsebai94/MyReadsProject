@@ -42,7 +42,7 @@ const SearchBooks = ({ books, moveHandle }) => {
             ? showingBooks.map((book) => (
                 <Book key={book.id} book={book} moveHandle={moveHandle} />
               ))
-            : "none"}
+            : "No books with this name"}
         </ol>
       </div>
     </div>

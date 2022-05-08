@@ -22,7 +22,13 @@ function App() {
     getBooks();
   }, []);
 
+
+
   const changeBookShelf = (book, shelf) => {
+    const update = async () => {
+      const res = await BooksAPI.update(book, shelf)
+      console.log(res);
+    }
     const changedBookShelves = books.map((selectedBook) => {
       if (selectedBook.id === book.id) {
         selectedBook.shelf = shelf;
@@ -30,6 +36,7 @@ function App() {
       return selectedBook;
     });
     setBooks(changedBookShelves);
+    update(books)
   };
 
   return (
