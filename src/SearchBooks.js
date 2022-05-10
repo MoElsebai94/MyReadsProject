@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Book from "./Book";
 import { useState } from "react";
 import * as BooksAPI from "./BooksAPI";
+import propTypes from "prop-types";
 
 const SearchBooks = ({ books, moveHandle }) => {
   const [query, setQuery] = useState("");
@@ -33,8 +34,6 @@ const SearchBooks = ({ books, moveHandle }) => {
     return book;
   });
 
-  console.log(books);
-  console.log(updatedBooks);
 
   /* const showingBooks =
     query === ""
@@ -83,4 +82,11 @@ const SearchBooks = ({ books, moveHandle }) => {
   );
 };
 
+SearchBooks.propTypes = {
+    books: propTypes.array.isRequired,
+    moveHandle: propTypes.func.isRequired,
+  };
+
 export default SearchBooks;
+
+

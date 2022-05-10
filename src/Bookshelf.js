@@ -1,4 +1,5 @@
 import Book from "./Book";
+import propTypes from "prop-types";
 
 const Bookshelf = ({ books, shelf, moveHandle }) => {
   const booksOnShelf = books.filter((book) => book.shelf === shelf.key);
@@ -22,4 +23,12 @@ const Bookshelf = ({ books, shelf, moveHandle }) => {
 };
 
 
+Bookshelf.propTypes = {
+    books: propTypes.array.isRequired,
+    shelf: propTypes.object.isRequired,
+    moveHandle: propTypes.func.isRequired,
+  };
+
+  
 export default Bookshelf;
+
