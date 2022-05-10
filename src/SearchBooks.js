@@ -34,7 +34,6 @@ const SearchBooks = ({ books, moveHandle }) => {
     return book;
   });
 
-
   /* const showingBooks =
     query === ""
       ? !books
@@ -66,7 +65,7 @@ const SearchBooks = ({ books, moveHandle }) => {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {updatedBooks.length
+          {updatedBooks.length && query
             ? updatedBooks.map((book) => (
                 <Book
                   key={book.id}
@@ -83,10 +82,8 @@ const SearchBooks = ({ books, moveHandle }) => {
 };
 
 SearchBooks.propTypes = {
-    books: propTypes.array.isRequired,
-    moveHandle: propTypes.func.isRequired,
-  };
+  books: propTypes.array.isRequired,
+  moveHandle: propTypes.func.isRequired,
+};
 
 export default SearchBooks;
-
-
