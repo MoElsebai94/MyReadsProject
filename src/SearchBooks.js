@@ -34,6 +34,8 @@ const SearchBooks = ({ books, moveHandle }) => {
     return book;
   });
 
+  console.log(updatedBooks);
+
   /* const showingBooks =
     query === ""
       ? !books

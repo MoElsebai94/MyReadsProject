@@ -29,10 +29,10 @@ const Book = ({ book, shelf, moveHandle }) => {
 
           <div className="book-shelf-changer">
             <select
-              value={shelf ? shelf : "none"}
+              value={shelf}
               onChange={(e) => moveHandle(book, e.target.value)}
             >
-              <option value="none" disabled>
+              <option value="no" disabled>
                 Move to...
               </option>
               <option value="currentlyReading">Currently Reading</option>

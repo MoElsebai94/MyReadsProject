@@ -27,13 +27,9 @@ function App() {
       const res = await BooksAPI.update(book, shelf);
       console.log(res);
     };
-    const changedBookShelves = books.map((selectedBook) => {
-      if (selectedBook.id === book.id) {
-        selectedBook.shelf = shelf;
-      }
-      return selectedBook;
-    });
-    setBooks(changedBookShelves);
+    book.shelf = shelf;
+    setBooks(books.filter((b) => b.id !== book.id).concat(book));
+
     update(books);
   };
 
