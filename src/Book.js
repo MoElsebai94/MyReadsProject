@@ -1,4 +1,6 @@
-const Book = ({ book, shelf, moveHandle}) => {
+import propTypes from "prop-types";
+
+const Book = ({ book, shelf, moveHandle }) => {
   const bookThumbnail =
     book.imageLinks && book.imageLinks.thumbnail
       ? book.imageLinks.thumbnail
@@ -11,8 +13,6 @@ const Book = ({ book, shelf, moveHandle}) => {
       ? book.authors.join(", ")
       : "Unknown author"
     : "Unknown author";
-
-
 
   return (
     <li>
@@ -29,7 +29,7 @@ const Book = ({ book, shelf, moveHandle}) => {
 
           <div className="book-shelf-changer">
             <select
-              value={shelf ? shelf : 'none'}
+              value={shelf ? shelf : "none"}
               onChange={(e) => moveHandle(book, e.target.value)}
             >
               <option value="none" disabled>
@@ -47,6 +47,11 @@ const Book = ({ book, shelf, moveHandle}) => {
       </div>
     </li>
   );
+};
+
+Book.propTypes = {
+  book: propTypes.object.isRequired,
+  shelf: propTypes.string.isRequired,
 };
 
 export default Book;

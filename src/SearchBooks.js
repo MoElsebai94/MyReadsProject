@@ -3,7 +3,7 @@ import Book from "./Book";
 import { useState } from "react";
 import * as BooksAPI from "./BooksAPI";
 
-const SearchBooks = ({ moveHandle }) => {
+const SearchBooks = ({ books, moveHandle }) => {
   const [query, setQuery] = useState("");
   const [booksFound, setBooksFound] = useState([]);
 
@@ -22,6 +22,19 @@ const SearchBooks = ({ moveHandle }) => {
       setQuery("");
     }
   };
+
+  const updatedBooks = booksFound.map((book) => {
+    books.map((b) => {
+      if (b.id === book.id) {
+        book.shelf = b.shelf;
+      }
+      return b;
+    });
+    return book;
+  });
+
+  console.log(books);
+  console.log(updatedBooks);
 
   /* const showingBooks =
     query === ""
@@ -54,9 +67,14 @@ const SearchBooks = ({ moveHandle }) => {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {booksFound.length
-            ? booksFound.map((book) => (
-                <Book key={book.id} book={book} moveHandle={moveHandle} />
+          {updatedBooks.length
+            ? updatedBooks.map((book) => (
+                <Book
+                  key={book.id}
+                  book={book}
+                  moveHandle={moveHandle}
+                  shelf={book.shelf ? book.shelf : "none"}
+                />
               ))
             : "Please search/Check your keywords"}
         </ol>
